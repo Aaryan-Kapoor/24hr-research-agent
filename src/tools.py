@@ -98,7 +98,7 @@ def get_scrape_limiter() -> RateLimiter:
 # =============================================================================
 
 def search_tavily(query: str, max_results: int = 5) -> List[Dict[str, Any]]:
-    """Search using Tavily API"""
+    """Search using Tavily API with full content extraction"""
     settings = get_env_settings()
     config = get_config()
     
@@ -119,7 +119,8 @@ def search_tavily(query: str, max_results: int = 5) -> List[Dict[str, Any]]:
             search_depth=config.search.depth,
             max_results=max_results,
             include_domains=config.search.include_domains or None,
-            exclude_domains=config.search.exclude_domains or None
+            exclude_domains=config.search.exclude_domains or None,
+            include_raw_content=True  # Get full page content
         )
         
         results = []
@@ -128,6 +129,7 @@ def search_tavily(query: str, max_results: int = 5) -> List[Dict[str, Any]]:
                 'url': r.get('url', ''),
                 'title': r.get('title', ''),
                 'snippet': r.get('content', ''),
+                'raw_content': r.get('raw_content', ''),  # Full page content
                 'score': r.get('score', 0.5)
             })
         
@@ -411,19 +413,25 @@ def scrape_url(url: str) -> Tuple[str, str]:
 def extract_source_info(url: str, search_result: Dict[str, Any] = None) -> Source:
     """
     Extract full source information from a URL
+    Uses raw_content from Tavily if available, falls back to scraping
     """
     title = search_result.get('title', '') if search_result else ''
     snippet = search_result.get('snippet', '') if search_result else ''
     
-    # Try to scrape full content
+    # First, try to use raw_content from Tavily search results (already fetched)
     full_content = ""
-    try:
-        scraped_title, scraped_content = scrape_url(url)
-        if scraped_title and not title:
-            title = scraped_title
-        full_content = scraped_content
-    except Exception as e:
-        logger.warning(f"Could not scrape {url}: {e}")
+    if search_result and search_result.get('raw_content'):
+        full_content = search_result['raw_content']
+        logger.debug(f"Using Tavily raw_content for {url[:50]}...")
+    else:
+        # Fall back to scraping if no raw_content (e.g., Serper/Brave results)
+        try:
+            scraped_title, scraped_content = scrape_url(url)
+            if scraped_title and not title:
+                title = scraped_title
+            full_content = scraped_content
+        except Exception as e:
+            logger.warning(f"Could not scrape {url}: {e}")
     
     domain = get_domain(url)
     is_academic = is_academic_source(url)
