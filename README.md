@@ -8,7 +8,10 @@ An experimental autonomous research system that conducts comprehensive, multi-ho
   <br>
   <h3>Sample Mini Research Output Limited to 20 Tasks</h3>
   <a href="A_comprehensive_analysis_on_AI_acceleration_in_2025.html">
-    <img src="https://img.shields.io/badge/View_Full_Report-AI_Acceleration_2025-blue?style=for-the-badge" height="40" alt="View Sample Report" />
+    <img src="https://img.shields.io/badge/View_Full_Report_HTML-AI_Acceleration_2025-blue?style=for-the-badge" height="40" alt="View Sample Report HTML" />
+  </a>
+  <a href="A_comprehensive_analysis_on_AI_acceleration_in_2025.md">
+    <img src="https://img.shields.io/badge/View_Full_Report_Markdown-AI_Acceleration_2025-blue?style=for-the-badge" height="40" alt="View Sample Report Markdown" />
   </a>
   <p><sub>Generated Dec 07, 2025 • 22,662 words • 195 sources • 20 sections (intentionally limited) • 32.2 minutes runtime</sub></p>
 </div>
