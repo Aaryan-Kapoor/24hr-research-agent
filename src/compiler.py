@@ -30,27 +30,15 @@ HTML_TEMPLATE = """<!DOCTYPE html>
     <title>{{ title }}</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --secondary: #64748b;
+            --primary: #000000;
+            --secondary: #444444;
             --background: #ffffff;
-            --surface: #f8fafc;
-            --text: #1e293b;
-            --text-secondary: #64748b;
-            --border: #e2e8f0;
-            --code-bg: #f1f5f9;
-        }
-        
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --primary: #60a5fa;
-                --secondary: #94a3b8;
-                --background: #0f172a;
-                --surface: #1e293b;
-                --text: #f1f5f9;
-                --text-secondary: #94a3b8;
-                --border: #334155;
-                --code-bg: #1e293b;
-            }
+            --surface: #f5f5f5;
+            --text: #111111;
+            --text-secondary: #555555;
+            --border: #dddddd;
+            --code-bg: #f0f0f0;
+            --accent: #333333;
         }
         
         * {
@@ -60,77 +48,85 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            line-height: 1.7;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            line-height: 1.8;
             color: var(--text);
             background: var(--background);
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 3rem 2rem;
         }
         
         header {
             text-align: center;
             margin-bottom: 3rem;
             padding-bottom: 2rem;
-            border-bottom: 2px solid var(--border);
+            border-bottom: 2px solid var(--primary);
         }
         
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            font-size: 2.2rem;
+            margin-bottom: 0.75rem;
             color: var(--primary);
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
         
         .subtitle {
             color: var(--text-secondary);
             font-size: 1.1rem;
+            font-style: italic;
         }
         
         .meta {
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             font-size: 0.9rem;
             color: var(--secondary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         
         h2 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             margin-top: 3rem;
             margin-bottom: 1rem;
-            color: var(--text);
+            color: var(--primary);
             padding-bottom: 0.5rem;
             border-bottom: 1px solid var(--border);
+            font-weight: 600;
         }
         
         h3 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             margin-top: 2rem;
             margin-bottom: 0.75rem;
             color: var(--text);
+            font-weight: 600;
         }
         
         h4 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-top: 1.5rem;
             margin-bottom: 0.5rem;
+            font-weight: 600;
         }
         
         p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
+            text-align: justify;
         }
         
         a {
-            color: var(--primary);
-            text-decoration: none;
-        }
-        
-        a:hover {
+            color: var(--accent);
             text-decoration: underline;
         }
         
+        a:hover {
+            color: var(--primary);
+        }
+        
         blockquote {
-            border-left: 4px solid var(--primary);
-            padding-left: 1rem;
+            border-left: 3px solid var(--primary);
+            padding-left: 1.5rem;
             margin: 1.5rem 0;
             color: var(--text-secondary);
             font-style: italic;
@@ -139,22 +135,25 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         code {
             background: var(--code-bg);
             padding: 0.2rem 0.4rem;
-            border-radius: 4px;
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.9em;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+            font-size: 0.85em;
+            border: 1px solid var(--border);
         }
         
         pre {
             background: var(--code-bg);
             padding: 1rem;
-            border-radius: 8px;
+            border-radius: 4px;
             overflow-x: auto;
-            margin: 1rem 0;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border);
         }
         
         pre code {
             background: none;
             padding: 0;
+            border: none;
         }
         
         ul, ol {
@@ -185,8 +184,8 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         
         .toc {
             background: var(--surface);
-            padding: 1.5rem;
-            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            border: 1px solid var(--border);
             margin-bottom: 2rem;
         }
         
@@ -194,51 +193,75 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             margin-top: 0;
             border: none;
             padding: 0;
+            font-size: 1.2rem;
         }
         
         .toc ul {
             list-style: none;
             padding-left: 0;
+            margin-bottom: 0;
         }
         
         .toc li {
-            padding: 0.25rem 0;
+            padding: 0.3rem 0;
+            border-bottom: 1px dotted var(--border);
+        }
+        
+        .toc li:last-child {
+            border-bottom: none;
         }
         
         .toc a {
             color: var(--text);
+            text-decoration: none;
+        }
+        
+        .toc a:hover {
+            text-decoration: underline;
         }
         
         .bibliography {
             background: var(--surface);
-            padding: 1.5rem;
-            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            border: 1px solid var(--border);
             margin-top: 3rem;
         }
         
         .bibliography h2 {
             margin-top: 0;
+            font-size: 1.2rem;
         }
         
         .bibliography ol {
             padding-left: 1.5rem;
+            margin-bottom: 0;
         }
         
         .bibliography li {
             margin-bottom: 0.75rem;
             word-break: break-word;
+            font-size: 0.9rem;
         }
         
         .glossary {
             background: var(--surface);
-            padding: 1.5rem;
-            border-radius: 8px;
+            padding: 1.5rem 2rem;
+            border: 1px solid var(--border);
             margin-top: 2rem;
+        }
+        
+        .glossary h2 {
+            margin-top: 0;
+            font-size: 1.2rem;
         }
         
         .glossary dt {
             font-weight: 600;
             margin-top: 1rem;
+        }
+        
+        .glossary dt:first-of-type {
+            margin-top: 0.5rem;
         }
         
         .glossary dd {
@@ -247,7 +270,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         }
         
         .citation {
-            color: var(--primary);
+            color: var(--secondary);
             font-size: 0.85em;
         }
         
@@ -260,16 +283,18 @@ HTML_TEMPLATE = """<!DOCTYPE html>
         footer {
             margin-top: 3rem;
             padding-top: 2rem;
-            border-top: 2px solid var(--border);
+            border-top: 2px solid var(--primary);
             text-align: center;
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
         
         @media print {
             body {
                 max-width: none;
-                padding: 0;
+                padding: 1rem;
+                font-size: 11pt;
             }
             
             h2 {
@@ -278,6 +303,11 @@ HTML_TEMPLATE = """<!DOCTYPE html>
             
             h2:first-of-type {
                 page-break-before: avoid;
+            }
+            
+            .toc, .bibliography, .glossary {
+                background: none;
+                border: 1px solid #000;
             }
         }
     </style>
