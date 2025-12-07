@@ -1,8 +1,8 @@
-# 🔬 Deep Research Agent
+# 24 Hour Deep Research Agent
 
-A production-ready, 24-hour automated research system that produces comprehensive, book-length reports with citations on any topic.
+An experimental 24-hour automated research system that produces comprehensive, book-length reports with citations on any topic.
 
-## ✨ Features
+## Features
 
 - **Comprehensive Research**: Automatically breaks down complex topics into hundreds of sub-questions
 - **24-Hour Capability**: Designed for long-running research sessions with state persistence
@@ -16,7 +16,7 @@ A production-ready, 24-hour automated research system that produces comprehensiv
 - **Rate Limiting**: Built-in rate limiting to respect API limits
 - **Beautiful CLI**: Rich terminal output with progress tracking
 
-## 🏗️ Architecture
+## Architecture
 
 ```
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
@@ -33,11 +33,11 @@ A production-ready, 24-hour automated research system that produces comprehensiv
          ▼                       ▼                       ▼
 ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
 │   LLM Client    │     │   Web Search    │     │   Web Scraper   │
-│ (Claude/GPT/OR) │     │ (Tavily/Serper) │     │ (BeautifulSoup) │
+│ (Claude/GPT/OR) │     │ (Tavily/Serper) │     │ (Tavily/BSoup4) │
 └─────────────────┘     └─────────────────┘     └─────────────────┘
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Installation
 
@@ -90,7 +90,7 @@ python main.py research "A comprehensive analysis of quantum computing hardware"
 python main.py research --resume
 ```
 
-## 📖 CLI Commands
+## CLI Commands
 
 ```bash
 # Start new research
@@ -117,7 +117,7 @@ python main.py validate
 python main.py --help
 ```
 
-## ⚙️ Configuration
+## Configuration
 
 Edit `config.yaml` to customize:
 
@@ -151,7 +151,7 @@ output:
   include_bibliography: true
 ```
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 deep-research-agent/
@@ -177,7 +177,7 @@ deep-research-agent/
 └── research_state.db   # SQLite database (created at runtime)
 ```
 
-## 🔄 How It Works
+## How It Works
 
 ### Phase 1: Planning
 The **Planner Agent** analyzes your query and creates a comprehensive research plan with 10-200+ tasks, structured like a book outline.
@@ -198,7 +198,7 @@ The **Editor Agent** and **Compiler**:
 3. Compile all chapters into final reports
 4. Generate table of contents, bibliography, and glossary
 
-## 🛡️ Resilience Features
+## Resilience Features
 
 - **State Persistence**: All progress saved to SQLite database
 - **Graceful Shutdown**: Ctrl+C saves progress and compiles partial report
@@ -207,7 +207,7 @@ The **Editor Agent** and **Compiler**:
 - **Rate Limiting**: Prevents API throttling
 - **Retry Logic**: Automatic retries with exponential backoff
 
-## 📊 Example Output
+## Example Output
 
 After a research session, you'll have:
 
@@ -223,7 +223,7 @@ report/
 └── DEEP_RESEARCH_REPORT.pdf   # PDF (if weasyprint installed)
 ```
 
-## 🔧 Extending
+## Extending
 
 ### Adding New LLM Providers
 
@@ -237,7 +237,7 @@ report/
 2. Add provider enum in `src/config.py`
 3. Update `web_search()` function to handle new provider
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 **"API key not set"**
 - Ensure your `.env` file exists and contains the required keys
@@ -255,11 +255,11 @@ report/
 - Install WeasyPrint: `pip install weasyprint`
 - WeasyPrint may require system dependencies on some platforms
 
-## 📝 License
+## License
 
 MIT License - Use freely for personal and commercial projects.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions welcome! Please open an issue or PR.
 
